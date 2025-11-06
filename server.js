@@ -20,9 +20,9 @@ app.use(express.static(__dirname));
 // CONFIGURAÇÕES DA API DO TRELLO
 // -------------------------------------------
 // ⚠️ Substitua pelos seus dados
-const API_KEY = "SUA_API_KEY_AQUI";
-const TOKEN = "SEU_TOKEN_AQUI";
-const BOARD_ID = "SEU_BOARD_ID_AQUI";
+const API_KEY = "e407186c781175f4eda383070fef7b89";
+const TOKEN = "ATTA78346b1d891c7208078545999724c985575bc696bf078d1624b2dcbcc5d2bf31FE1786C9";
+const BOARD_ID = "https://trello.com/b/XyMSKz4a/viabilidade";
 
 // -------------------------------------------
 // FUNÇÕES DE INTEGRAÇÃO COM A API DO TRELLO
