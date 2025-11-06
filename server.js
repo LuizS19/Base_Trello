@@ -13,3 +13,18 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000, () => console.log("Servidor rodando"));
+
+import { getCards, createCard } from "./trello.js";
+
+// Rota para listar todos os cards
+app.get("/cards", async (req, res) => {
+  const cards = await getCards();
+  res.json(cards);
+});
+
+// Rota para criar um card de teste
+app.get("/add", async (req, res) => {
+  const novo = await createCard("ID_DA_LISTA_AQUI", "Card de Teste", "Criado via API");
+  res.json(novo);
+});
+
