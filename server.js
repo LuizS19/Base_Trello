@@ -41,3 +41,39 @@ app.get("/export", async (req, res) => {
   res.send("✅ Arquivo CSV gerado com sucesso!");
 });
 
+// -------------------------------------------
+// GERAR BASE DE DADOS A PARTIR DOS CARDS ARQUIVADOS
+// -------------------------------------------
+app.get("/base", async (req, res) => {
+  const url = `https://api.trello.com/1/boards/${BOARD_ID}/cards/closed?key=${API_KEY}&token=${TOKEN}`;
+  const response = await fetch(url);
+  const cards = await response.json();
+
+  // Função para extrair dados estruturados da descrição
+  const parseInfo = (desc) => {
+    const cidadeMatch = desc.match(/Cidade:\s*([A-Za-zÀ-ÿ\s]+)/i);
+    const ufMatch = desc.match(/UF:\s*([A-Z]{2})/i);
+    const tipoMatch = desc.match(/(link dedicado|banda larga|l2l)/i);
+    const valorMatch = desc.match(/R?\$?\s?([\d.,]+)/i);
+
+    return {
+      cidade: cidadeMatch ? cidadeMatch[1].trim() : "",
+      uf: ufMatch ? ufMatch[1].trim().toUpperCase() : "",
+      tipo: tipoMatch ? tipoMatch[1].toUpperCase() : "",
+      valor: valorMatch ? valorMatch[1].replace(",", ".") : ""
+    };
+  };
+
+  // Montar CSV com as informações extraídas
+  let csv = "Cidade,UF,Tipo,Valor\n";
+  cards.forEach(card => {
+    const info = parseInfo(card.desc + " " + card.name); // tenta extrair tanto do nome quanto da descrição
+    csv += `"${info.cidade}","${info.uf}","${info.tipo}","${info.valor}"\n`;
+  });
+
+  // Resposta em formato CSV para download
+  res.setHeader("Content-disposition", "attachment; filename=base_trello.csv");
+  res.set("Content-Type", "text/csv");
+  res.status(200).send(csv);
+});
+
