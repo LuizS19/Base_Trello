@@ -36,14 +36,6 @@ async function getCards() {
   return data;
 }
 
-// Criar um novo card
-async function createCard(listId, name, desc) {
-  const url = `https://api.trello.com/1/cards?idList=${XyMSKz4a}&key=${API_KEY}&token=${TOKEN}&name=${encodeURIComponent(name)}&desc=${encodeURIComponent(desc)}`;
-  const res = await fetch(url, { method: "POST" });
-  const data = await res.json();
-  return data;
-}
-
 // -------------------------------------------
 // ROTAS DO SERVIDOR
 // -------------------------------------------
@@ -57,13 +49,6 @@ app.get("/", (req, res) => {
 app.get("/cards", async (req, res) => {
   const cards = await getCards();
   res.json(cards);
-});
-
-// Rota para criar um novo card de teste
-app.get("/add", async (req, res) => {
-  const listId = "ID_DA_LISTA_AQUI"; // substitua pelo ID da lista onde quer criar
-  const novo = await createCard(listId, "Card de Teste", "Criado via API Node.js");
-  res.json(novo);
 });
 
 // Rota para exportar todos os cards como CSV
@@ -82,7 +67,7 @@ app.get("/export", async (req, res) => {
 
 // Rota para gerar base de dados a partir dos cards arquivados
 app.get("/base", async (req, res) => {
-  const url = `https://api.trello.com/1/boards/${BOARD_ID}/cards/closed?key=${API_KEY}&token=${TOKEN}`;
+  const url = `https://api.trello.com/1/boards/${XyMSKz4a}/cards/closed?key=${e407186c781175f4eda383070fef7b89}&token=${ATTA78346b1d891c7208078545999724c985575bc696bf078d1624b2dcbcc5d2bf31FE1786C9}`;
   const response = await fetch(url);
   const cards = await response.json();
 
