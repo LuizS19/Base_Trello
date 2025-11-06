@@ -22,7 +22,7 @@ app.use(express.static(__dirname));
 // ⚠️ Substitua pelos seus dados
 const API_KEY = "e407186c781175f4eda383070fef7b89";
 const TOKEN = "ATTA78346b1d891c7208078545999724c985575bc696bf078d1624b2dcbcc5d2bf31FE1786C9";
-const BOARD_ID = "https://trello.com/b/XyMSKz4a/viabilidade";
+const BOARD_ID = "XyMSKz4a";
 
 // -------------------------------------------
 // FUNÇÕES DE INTEGRAÇÃO COM A API DO TRELLO
@@ -30,7 +30,7 @@ const BOARD_ID = "https://trello.com/b/XyMSKz4a/viabilidade";
 
 // Buscar todos os cards
 async function getCards() {
-  const url = `https://api.trello.com/1/boards/${BOARD_ID}/cards?key=${API_KEY}&token=${TOKEN}`;
+  const url = `https://api.trello.com/1/boards/${XyMSKz4a}/cards?key=${e407186c781175f4eda383070fef7b89}&token=${ATTA78346b1d891c7208078545999724c985575bc696bf078d1624b2dcbcc5d2bf31FE1786C9}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
@@ -38,7 +38,7 @@ async function getCards() {
 
 // Criar um novo card
 async function createCard(listId, name, desc) {
-  const url = `https://api.trello.com/1/cards?idList=${listId}&key=${API_KEY}&token=${TOKEN}&name=${encodeURIComponent(name)}&desc=${encodeURIComponent(desc)}`;
+  const url = `https://api.trello.com/1/cards?idList=${XyMSKz4a}&key=${API_KEY}&token=${TOKEN}&name=${encodeURIComponent(name)}&desc=${encodeURIComponent(desc)}`;
   const res = await fetch(url, { method: "POST" });
   const data = await res.json();
   return data;
