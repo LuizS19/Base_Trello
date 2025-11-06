@@ -28,9 +28,9 @@ const BOARD_ID = "XyMSKz4a";
 // FUNÇÕES DE INTEGRAÇÃO COM A API DO TRELLO
 // -------------------------------------------
 
-// Buscar todos os cards
+// Buscar todos os cards (ativos e não arquivados)
 async function getCards() {
-  const url = `https://api.trello.com/1/boards/${XyMSKz4a}/cards?key=${e407186c781175f4eda383070fef7b89}&token=${ATTA78346b1d891c7208078545999724c985575bc696bf078d1624b2dcbcc5d2bf31FE1786C9}`;
+  const url = `https://api.trello.com/1/boards/${BOARD_ID}/cards?key=${API_KEY}&token=${TOKEN}`;
   const res = await fetch(url);
   const data = await res.json();
   return data;
@@ -67,7 +67,7 @@ app.get("/export", async (req, res) => {
 
 // Rota para gerar base de dados a partir dos cards arquivados
 app.get("/base", async (req, res) => {
-  const url = `https://api.trello.com/1/boards/${XyMSKz4a}/cards/closed?key=${e407186c781175f4eda383070fef7b89}&token=${ATTA78346b1d891c7208078545999724c985575bc696bf078d1624b2dcbcc5d2bf31FE1786C9}`;
+  const url = `https://api.trello.com/1/boards/${BOARD_ID}/cards/closed?key=${API_KEY}&token=${TOKEN}`;
   const response = await fetch(url);
   const cards = await response.json();
 
