@@ -28,3 +28,16 @@ app.get("/add", async (req, res) => {
   res.json(novo);
 });
 
+import { getCards } from "./trello.js";
+import { writeFileSync } from "fs";
+
+app.get("/export", async (req, res) => {
+  const cards = await getCards();
+  let csv = "Nome,Descrição,Data\n";
+  cards.forEach(c => {
+    csv += `"${c.name}","${c.desc.replace(/\n/g, " ")}","${c.dateLastActivity}"\n`;
+  });
+  writeFileSync("cards.csv", csv);
+  res.send("✅ Arquivo CSV gerado com sucesso!");
+});
+
